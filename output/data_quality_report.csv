@@ -1,0 +1,10 @@
+dataset,issue,count,treatment,business_impact
+accounts,Missing borrower_id,455,Keep account; flag missing borrower linkage,Can affect borrower-level attribution
+borrowers,Duplicate borrower_id groups,8566,Do not treat raw rows as unique borrowers; use latest updated row for profile,Inflates borrower counts
+borrowers,Excess duplicate rows,19585,Latest profile row retained in golden layer,Inflates denominator
+payments,Duplicate payment_id groups,500,Deduplicate payment_id before recovery,Can inflate recovery if summed raw
+payments,Rows belonging to duplicate payment_ids,1000,Keep one row per payment_id,"1,000 raw rows reduce to 500 duplicate groups"
+payments,Exact duplicate rows,486,Remove exact duplicates,Part of payment duplication issue
+calls,Duplicate call_id rows,1350,Use call_id as event key for call-level analysis,Can inflate contact/attempt counts
+call_attempts,Repeated call_id values,53756,Keep attempts separate; do not count call_id as unique attempt,Attempt table is not a unique call table
+events,Timezone fields,91350,Preserve source timezone; avoid local-hour comparisons across sources without conversion,Hour/day analysis can be biased
